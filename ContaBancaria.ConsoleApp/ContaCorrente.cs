@@ -1,31 +1,58 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ContaBancaria.ConsoleApp
 {
-    internal class ContaCorrente
+    public class ContaCorrente
     {
-        private int numero { get; set; }
-        private double saldo { get; set; }
-        private double limite { get; set; }
-        private List<Movimentacao> movimentacoes = new List<Movimentacao>();
+        public int numero { get; set; }
+        public double saldo { get; set; }
+        public double limite { get; set; }
+        public List<Movimentacao> movimentacoes = new List<Movimentacao>();
 
         public void Sacar(double quantia)
-        { }
+        {
+            if (quantia <= saldo + limite)
+            {
+                saldo -= quantia;
+                RegistrarMovimentacao("Débito", quantia);
+            }
+        }
 
-        public void Depositar(double valor)
-        { }
+        public void Depositar(double quantia)
+        {
+            saldo += quantia;
+            RegistrarMovimentacao("Crédito", quantia);
+        }
 
         public void Transferir(ContaCorrente destino, double quantia)
         { }
 
-        public void ExibirExtrato()
-        { }
+        public void ExibirExtrato(DateTime? inicio = null, DateTime? fim = null)
+        {
+            foreach (var mov in movimentacoes)
+            {
+                if ((inicio == null || mov.data >= inicio) && (fim == null || mov.data <= fim))
+                {
+                    Console.WriteLine(mov);
+                }
+            }
+        }
 
         private void RegistrarMovimentacao(string tipo, double quantia)
-        { }
+        {
+            movimentacoes.Add(new Movimentacao
+            {
+                data = DateTime.Now,
+                tipo = tipo,
+                valor = quantia
+            });
+        }
     }
 }

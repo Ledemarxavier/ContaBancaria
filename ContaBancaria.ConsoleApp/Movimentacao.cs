@@ -8,11 +8,11 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ContaBancaria.ConsoleApp
 {
-    internal class Movimentacao
+    public class Movimentacao
     {
         public DateTime data { get; set; }
         public string tipo { get; set; }
-        private double valor { get; set; }
+        public double valor { get; set; }
 
         public override string ToString()
         {
