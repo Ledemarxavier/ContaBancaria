@@ -12,5 +12,20 @@ namespace ContaBancaria.ConsoleApp
         private double saldo { get; set; }
         private double limite { get; set; }
         private List<Movimentacao> movimentacoes = new List<Movimentacao>();
+
+        public void Sacar(double quantia)
+        { }
+
+        public void Depositar(double valor)
+        { }
+
+        public void Transferir(ContaCorrente destino, double quantia)
+        { }
+
+        public void ExibirExtrato()
+        { }
+
+        private void RegistrarMovimentacao(string tipo, double quantia)
+        { }
     }
 }
