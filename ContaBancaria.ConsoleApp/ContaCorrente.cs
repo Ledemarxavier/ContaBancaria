@@ -32,20 +32,25 @@ namespace ContaBancaria.ConsoleApp
         }
 
         public void Transferir(ContaCorrente destino, double quantia)
-        { }
-
-        public void ExibirExtrato(DateTime? inicio = null, DateTime? fim = null)
         {
-            foreach (var mov in movimentacoes)
+            if (quantia <= saldo + limite)
             {
-                if ((inicio == null || mov.data >= inicio) && (fim == null || mov.data <= fim))
-                {
-                    Console.WriteLine(mov);
-                }
+                Sacar(quantia);
+                destino.Depositar(quantia);
             }
         }
 
-        private void RegistrarMovimentacao(string tipo, double quantia)
+        public void ExibirExtrato(DateTime dataBusca)
+        {
+            foreach (var mov in movimentacoes)
+
+                if (mov.data.Date == dataBusca.Date)
+                {
+                    Console.WriteLine($"{mov.data:HH:mm} - {mov.tipo}: R$ {mov.valor:F2}");
+                }
+        }
+
+        public void RegistrarMovimentacao(string tipo, double quantia)
         {
             movimentacoes.Add(new Movimentacao
             {
@@ -53,6 +58,11 @@ namespace ContaBancaria.ConsoleApp
                 tipo = tipo,
                 valor = quantia
             });
+        }
+
+        public void ExibirSaldo()
+        {
+            Console.WriteLine($"Saldo atual: R$ {saldo:F2}");
         }
     }
 }

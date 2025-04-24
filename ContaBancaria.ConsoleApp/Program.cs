@@ -7,15 +7,29 @@
             ContaCorrente conta1 = new ContaCorrente
             {
                 numero = 121314,
-                saldo = 2000,
+                saldo = 0,
                 limite = 100,
-                movimentacoes = new List<Movimentacao>()
             };
 
             conta1.Depositar(300);
 
-            conta1.ExibirExtrato();
             Console.ReadLine();
+
+            ContaCorrente conta2 = new ContaCorrente
+            {
+                numero = 13141516,
+                saldo = 0,
+                limite = 50,
+            };
+
+            conta1.Transferir(conta2, 400);
+            conta2.Depositar(300);
+            conta1.ExibirExtrato(new DateTime(2025, 4, 24));
+            Console.WriteLine();
+
+            conta1.ExibirSaldo();
+            conta2.ExibirSaldo();
+            Console.WriteLine();
         }
     }
 }
